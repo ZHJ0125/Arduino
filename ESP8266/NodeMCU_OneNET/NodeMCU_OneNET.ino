@@ -6,7 +6,7 @@
 #include <ArduinoJson.h>
 #define DEVICE_ID "xxxxxxxxxxxxxx"
 #define  API_Key  "xxxxxxxxxxxxxx"
-String   GET_URL = "http://api.heclouds.com/devices/" + String(DEVICE_ID) + "/datastreams/Temperature";
+String   GET_URL = "http://api.heclouds.com/devices/" + String(DEVICE_ID) + "/datastreams/Light";
 String  POST_URL = "http://api.heclouds.com/devices/" + String(DEVICE_ID) + "/datapoints";
 const char* ssid = "xxxxxxxxxxxx";
 const char* password = "xxxxxxxx";
@@ -15,6 +15,7 @@ int humi = 30;
 
 void setup(){
   Serial.begin(115200);
+  pinMode(LED_BUILTIN, OUTPUT);
 
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
@@ -100,18 +101,24 @@ void Json_Analysis_GET(String input){
   
   int errno = doc["errno"]; // 0
   JsonObject data = doc["data"];
-  const char* data_update_at = data["update_at"]; // "2021-03-04 09:10:00"
-  const char* data_id = data["id"]; // "Temperature"
-  const char* data_create_time = data["create_time"]; // "2021-03-03 22:26:07"
-  int data_current_value = data["current_value"]; // 24
+  const char* data_update_at = data["update_at"]; // "2021-03-04 10:40:32"
+  const char* data_unit = data["unit"]; // ""
+  const char* data_id = data["id"]; // "Light"
+  const char* data_unit_symbol = data["unit_symbol"]; // ""
+  int data_current_value = data["current_value"]; // 1
   const char* succ = doc["error"]; // "succ"
   
   Serial.println("[GET]     data_id: " + String(data_id));
   Serial.println("[GET]  data_value: " + String(data_current_value));
   Serial.println("[GET] update_time: " + String(data_update_at));
-  Serial.println("[GET] create_time: " + String(data_create_time));
+  //Serial.println("[GET] create_time: " + String(data_create_time));
   if(succ == "succ"){
     Serial.println("[GET] OK!");
   }
-  
+  if(data_current_value == 1){
+    digitalWrite(LED_BUILTIN, LOW);   // LED On
+  }
+  else{
+    digitalWrite(LED_BUILTIN, HIGH);  // LED Off
+  }
 }
