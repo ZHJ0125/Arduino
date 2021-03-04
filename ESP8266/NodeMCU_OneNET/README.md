@@ -73,6 +73,7 @@ https://open.iot.10086.cn/develop/global/product/#/console
 ```c
 // Upload data using OneNET + NodeMCU
 // Test By ZhangHoujin 2021.03.04
+// https://github.com/ZHJ0125/Arduino/blob/master/ESP8266/NodeMCU_OneNET
 
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
@@ -206,3 +207,9 @@ void Json_Analysis_GET(String input){
 在OneNET的应用管理->应用详情页面，找到该应用的“发布链接”，进入该链接可以看到实时上传的数据，也可以对NodeMCU板载的LED进行开关控制。
 
 OneNET平台数据刷新最小间隔时间为3秒，所以数据会有几秒钟的延时。
+
+## 5. 参考资料
+
+* [ESP8266-Arduino库开发参考资料 - 太极创客](http://www.taichi-maker.com/homepage/iot-development/iot-dev-reference/esp8266-c-plus-plus-reference/)
+* [API使用 - OneNET开发文档](https://open.iot.10086.cn/doc/multiprotocol/book/develop/http/api/api-usage.html)
+* [ArduinoJson Assistant - Json格式解析](https://arduinojson.org/v6/assistant/)
